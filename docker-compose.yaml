@@ -1,7 +1,7 @@
 version: '3.8'
 services:
-  postgres:
-    container_name: postgres
+  camp-postgres:
+    container_name: camp-postgres
     restart: always
     build:
       context: .
@@ -15,10 +15,10 @@ services:
     ports:
       - "5432:5432"
 
-  golang:
-    container_name: golang
+  camp-golang:
+    container_name: camp-golang
     depends_on:
-      - postgres
+      - camp-postgres
     build:
       context: .
       dockerfile: ./docker/backend/Dockerfile
@@ -31,7 +31,7 @@ services:
     ports:
       - "8080:8080"
 
-  react:
+  camp-react:
    build:
      context: .
      dockerfile: ./docker/frontend/Dockerfile
