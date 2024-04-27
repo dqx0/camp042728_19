@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	//
 	db := db.NewDB()
 	repository := repository.NewBaseRepository(db)
 	h := handler.NewBaseHandler(usecase.NewBaseUsecase(repository))
