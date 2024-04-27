@@ -22,7 +22,6 @@ export const ExpensesRegister = () => {
     }
 
     const handleClick = (e) => {
-        console.log("handleClick発火");
         console.log(title);
         console.log(money);
 
@@ -30,34 +29,21 @@ export const ExpensesRegister = () => {
             title: title,
             money: parseInt(money)
         }
-        if (count < 1) { // 新しい支出を記録します.
-            // ローカル環境でのテスト用に3000番ポートのurlにしています。
-            fetch(/*"http://localhost:8080/api/expenses"*/"http://localhost:3000", {
-                method: 'POST',
-                body: JSON.stringify(body)
-            })
-            .then(
-                console.log(body)
-            )
-            .then(
-                count++
-            )
-            .then(
-                console.log("count: " + count)
-            );
-        } else { // 既存の支出を記録する際に使用します.
-            // ローカル環境でのテスト用に3000番ポートのurlにしています。
-            fetch(/*"http://localhost:8080/api/expenses"*/"http://localhost:3000", {
-                method: 'PUT',
-                body: JSON.stringify(body)
-            })
-            .then(
-                console.log(body)
-            )
-            .then(
-                count++
-            );
-        }
+        // 新しい支出を記録します.
+        // ローカル環境でのテスト用に3000番ポートのurlにしています。
+        fetch(/*"http://localhost:8080/api/expenses"*/"http://localhost:3000", {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+        .then(
+            console.log(body)
+        )
+        .then(
+            count++
+        )
+        .then(
+            console.log("count: " + count)
+        );
     
     }
 
