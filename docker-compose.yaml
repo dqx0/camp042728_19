@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    environment:
+      - POSTGRES_USER=app_user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=app_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  golang:
+    container_name: golang
+    depends_on:
+      - postgres
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    environment:
+      - GOPATH=/go
+    volumes:
+      - ./backend:/go/src/app/go/
+    tty: true
+    stdin_open: true
+    ports:
+      - "8080:8080"
+
+  react:
+   build:
+     context: .
+     dockerfile: ./docker/frontend/Dockerfile
+   volumes:
+     - ./frontend:/frontend
+   ports:
+     - "3000:3000"
+   tty: true
+   stdin_open: true
+
+volumes:
+  db-data:
+    driver: local
