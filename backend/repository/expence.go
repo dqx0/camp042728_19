@@ -8,6 +8,7 @@ import (
 type IExpenceRepository interface {
 	GetByID(id uint) (model.Expense, error)
 	GetAllByUJserIdAndDate(userId uint, date string) ([]model.Expense, error)
+	GetLastOfUserId(id int) (model.Expense, error)
 	Create(expence model.Expense) (model.Expense, error)
 	Update(expence model.Expense) (model.Expense, error)
 	Delete(expence model.Expense) error
@@ -28,6 +29,11 @@ func (r *expenceRepository) GetAllByUJserIdAndDate(userId uint, date string) ([]
 	var expences []model.Expense
 	err := r.db.Where("user_id = ? AND date = ?", userId, date).Find(&expences).Error
 	return expences, err
+}
+func (r *expenceRepository) GetLastOfUserId(id int) (model.Expense, error) {
+	var expence model.Expense
+	err := r.db.Last(&expence, id).Error
+	return expence, err
 }
 func (r *expenceRepository) Create(expence model.Expense) (model.Expense, error) {
 	err := r.db.Create(&expence).Error
