@@ -33,6 +33,7 @@ func (h *userHandler) GetUser() gin.HandlerFunc {
 		ctx.JSON(http.StatusOK, gin.H{"message": "ok", "data": user})
 	}
 }
+
 func (h *userHandler) CreateUser() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var user model.User
