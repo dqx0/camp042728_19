@@ -1,22 +1,17 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"github.com/dqx0/camp042728_19/db"
+	"github.com/dqx0/camp042728_19/handler"
+	"github.com/dqx0/camp042728_19/repository"
+	"github.com/dqx0/camp042728_19/router"
+	"github.com/dqx0/camp042728_19/usecase"
 )
 
 func main() {
-	engine := gin.Default()
-	DefineRoutes(engine)
-	engine.Run(":8080")
-}
-func DefineRoutes(r gin.IRouter) {
-	r.GET("/", func(ctx *gin.Context) {
-		// HTTPステータス200,レスポンスのdataに"Hello World"を返却
-		ctx.JSONP(http.StatusOK, gin.H{
-			"message": "ok",
-			"data":    "Hello World",
-		})
-	})
+	db := db.NewDB()
+	repository := repository.NewBaseRepository(db)
+	h := handler.NewBaseHandler(usecase.NewBaseUsecase(repository))
+	r := router.NewRouter(h)
+	r.Run(":8080")
 }
