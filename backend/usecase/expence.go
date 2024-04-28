@@ -32,6 +32,7 @@ func (u *expenceUsecase) GetAllByUserIdAndDate(userId uint, date string) ([]mode
 	return u.repo.GetAllByUJserIdAndDate(userId, date)
 }
 func (u *expenceUsecase) Create(expence model.Expense) (model.Expense, error) {
+	expence.UserID = 1
 	expence.Date = time.Now()
 	remain, err := u.GetLastOfUserId(int(expence.UserID))
 	if err != nil {
@@ -41,7 +42,7 @@ func (u *expenceUsecase) Create(expence model.Expense) (model.Expense, error) {
 		allowance, _ := u.alRepo.GetCurrent(int(expence.Date.Month()), int(expence.Date.Year()))
 		expence.RemainingAmount = remain.RemainingAmount + allowance.Allowance/daysInMonth(int(expence.Date.Year()), int(expence.Date.Month()))
 	} else {
-		expence.RemainingAmount = remain.RemainingAmount
+		expence.RemainingAmount = remain.RemainingAmount - expence.AmountSpent
 	}
 	return u.repo.Create(expence)
 }

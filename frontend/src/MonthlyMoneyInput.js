@@ -9,15 +9,20 @@ export const MonthlyMoneyInput = () => {
     }
 
     const handleClick = () => {
-        console.log("handleClick発火");
-        console.log("送信する金額: ", money);
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
 
+        console.log("handleClick発火");
+
+        // ここで金額、年、月の順番でオブジェクトを作成
         const body = {
-            money: parseInt(money, 10)
+            money: parseInt(money, 10),
+            year: year,
+            month: month
         };
 
-        // fetch APIを使用してサーバーにデータをPOSTする
-        fetch("http://localhost:8080/api/allowance" /*"http://localhost:3000"*/, {
+        fetch("http://localhost:3000/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +43,6 @@ export const MonthlyMoneyInput = () => {
         });
     }
 
-    // コンポーネントのUI部分
     return (
         <div>
             <p className='description'>１ヶ月に使用できる金額を入力してください</p>
