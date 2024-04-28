@@ -12,6 +12,7 @@ import (
 type IUserHandler interface {
 	GetUser() gin.HandlerFunc
 	CreateUser() gin.HandlerFunc
+	CreateTestUser() gin.HandlerFunc
 	UpdateUser() gin.HandlerFunc
 	DeleteUser() gin.HandlerFunc
 }
@@ -42,6 +43,20 @@ func (h *userHandler) CreateUser() gin.HandlerFunc {
 			return
 		}
 		user, err := h.baseUsecase.GetUserUsecase().Create(user)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+			return
+		}
+		ctx.JSON(http.StatusOK, gin.H{"message": "ok", "data": user})
+	}
+}
+func (r *userHandler) CreateTestUser() gin.HandlerFunc {
+	user := model.User{
+		Username: "test",
+		Password: "password",
+	}
+	return func(ctx *gin.Context) {
+		user, err := r.baseUsecase.GetUserUsecase().Create(user)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 			return

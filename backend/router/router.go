@@ -22,6 +22,7 @@ func NewRouter(h handler.IBaseHandler) *gin.Engine {
 	})
 	r.GET("/api/user/profile/:id", h.GetUserHandler().GetUser())
 	r.POST("/api/user/profile", h.GetUserHandler().CreateUser())
+	r.POST("/api/user/test", h.GetUserHandler().CreateTestUser())
 	r.PUT("/api/user/profile/:id", h.GetUserHandler().UpdateUser())
 	r.DELETE("/api/user/profile/:id", h.GetUserHandler().DeleteUser())
 	r.GET("/api/expence/:id", h.GetExpenceHandler().GetExpence())
