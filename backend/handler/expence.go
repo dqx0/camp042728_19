@@ -12,6 +12,7 @@ import (
 type IExpenceHandler interface {
 	GetExpence() gin.HandlerFunc
 	CreateExpence() gin.HandlerFunc
+	CreateTestExpence() gin.HandlerFunc
 	UpdateExpence() gin.HandlerFunc
 	DeleteExpence() gin.HandlerFunc
 }
@@ -40,6 +41,20 @@ func (h *expenceHandler) CreateExpence() gin.HandlerFunc {
 			ctx.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 			return
 		}
+		expence, err := h.baseUsecase.GetExpenceUsecase().Create(expence)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+			return
+		}
+		ctx.JSON(http.StatusOK, gin.H{"message": "ok", "data": expence})
+	}
+}
+func (h *expenceHandler) CreateTestExpence() gin.HandlerFunc {
+	expence := model.Expense{
+		Title:       "test",
+		AmountSpent: 100,
+	}
+	return func(ctx *gin.Context) {
 		expence, err := h.baseUsecase.GetExpenceUsecase().Create(expence)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})

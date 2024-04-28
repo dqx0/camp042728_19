@@ -27,6 +27,7 @@ func NewRouter(h handler.IBaseHandler) *gin.Engine {
 	r.DELETE("/api/user/profile/:id", h.GetUserHandler().DeleteUser())
 	r.GET("/api/expence/:id", h.GetExpenceHandler().GetExpence())
 	r.POST("/api/expence", h.GetExpenceHandler().CreateExpence())
+	r.POST("/api/expence/test/", h.GetExpenceHandler().CreateTestExpence())
 	r.PUT("/api/expence", h.GetExpenceHandler().UpdateExpence())
 	r.DELETE("/api/expence/:id", h.GetExpenceHandler().DeleteExpence())
 	r.GET("/api/allowance/:id", h.GetAllowanceHandler().GetAllowance())
