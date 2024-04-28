@@ -9,6 +9,6 @@ type Expense struct {
 	UserID          uint      `gorm:"index"`
 	Date            time.Time `gorm:"index"`
 	Title           string    `gorm:"type:varchar(255)" json:"title"`
-	AmountSpent     int       `gorm:"type:numeric(10,2)" json:"money"`
-	RemainingAmount int       `gorm:"type:numeric(10,2)"`
+	AmountSpent     int       `gorm:"int" json:"money"`
+	RemainingAmount int       `gorm:"int"`
 }

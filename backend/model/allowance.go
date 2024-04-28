@@ -5,5 +5,5 @@ type Allowance struct {
 	UserID      uint `gorm:"index"`
 	Month       int  `gorm:"index"`
 	Year        int  `gorm:"index"`
-	Allowance   int  `gorm:"type:numeric(10,2)"`
+	Allowance   int  `gorm:"int"`
 }
