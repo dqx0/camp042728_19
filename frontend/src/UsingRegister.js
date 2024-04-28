@@ -45,12 +45,13 @@ export const UsingRegister = () => {
 
     return (
         <div>
-            <p>ExpenseID: {data.ExpenseID}</p>
-            <p>UserID: {data.UserID}</p>
-            <p>Date: {formatDate(data.Date)}</p>
-            <p>Title: {data.title}</p>
-            <p>Money: {data.money}</p>
-            <p>RemainingAmount: {data.RemainingAmount}</p>
+            <p className='description'>使用可能金額</p>
+            {/* <p className='description'>ExpenseID: {data.ExpenseID}</p> */}
+            <p className='description'>UserID: {data.UserID}</p>
+            <p className='description'>Date: {formatDate(data.Date)}</p>
+            <p className='description'>Title: {data.title}</p>
+            <p className='description'>Money: {data.money}</p>
+            <p className='description'>RemainingAmount: {data.RemainingAmount}</p>
         </div>
     );
 };

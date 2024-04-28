@@ -17,7 +17,7 @@ export const MonthlyMoneyInput = () => {
         };
 
         // fetch APIを使用してサーバーにデータをPOSTする
-        fetch(/*http://localhost:8080/api/allowance*/"http://localhost:3000", {
+        fetch("http://localhost:8080/api/allowance" /*"http://localhost:3000"*/, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
