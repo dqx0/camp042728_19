@@ -20,7 +20,7 @@ func (u *baseUsecase) GetUserUsecase() IUserUsecase {
 	return NewUserUsecase(u.baseRepo.GetUserRepository())
 }
 func (u *baseUsecase) GetExpenceUsecase() IExpenceUsecase {
-	return NewExpenceUsecase(u.baseRepo.GetExpenceRepository())
+	return NewExpenceUsecase(u.baseRepo.GetExpenceRepository(), u.baseRepo.GetAllowanceRepository())
 }
 func (u *baseUsecase) GetAllowanceUsecase() IAllowanceUsecase {
 	return NewAllowanceUsecase(u.baseRepo.GetAllowanceRepository())
