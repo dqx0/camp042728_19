@@ -32,7 +32,7 @@ export const ExpensesRegister = () => {
         }
         // 新しい支出を記録します.
         // ローカル環境でのテスト用に3000番ポートのurlにしています。
-        fetch(/*"http://localhost:8080/api/expenses"*/"http://localhost:3000", {
+        fetch("http://localhost:8080/api/expence"/*"http://localhost:3000"*/, {
             method: 'POST',
             body: JSON.stringify(body)
         })
