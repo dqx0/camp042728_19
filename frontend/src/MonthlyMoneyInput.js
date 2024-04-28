@@ -41,9 +41,15 @@ export const MonthlyMoneyInput = () => {
     // コンポーネントのUI部分
     return (
         <div>
-            <p>金額</p>
-            <input type='text' onChange={handleChange} value={money} />
-            <button onClick={handleClick}>保存</button>
+            <p className='description'>１ヶ月に使用できる金額を入力してください</p>
+            <p className='description'>金額</p>
+            <div className='sub'>
+                <input type='text' onChange={handleChange} value={money} />
+            </div>
+            <br></br>
+            <div className='sub'>
+                <button onClick={handleClick}>登録</button>
+            </div>
         </div>
     );
 }

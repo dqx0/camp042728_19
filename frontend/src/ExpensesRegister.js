@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState } from "react"
+import Header from './Header';
 
 
 export const ExpensesRegister = () => {
@@ -49,14 +50,23 @@ export const ExpensesRegister = () => {
 
     return (
         <div>
+            {/* <Header /> */}
             {/* テキストボックス */}
-            <p>商品名</p>
-            <input type='text' onChange={handleChange} />
-            <p>金額</p>
-            <input type='text' onChange={handleChange2} />
+            <p className='description'>商品名</p>
+            <div className='sub'>
 
-            {/* 保存ボタン */}
-            <button onClick={handleClick}>保存</button>
+                <input type='text' onChange={handleChange} className='textbox'/>
+            </div>
+            <p className='description'>金額</p>
+            <div className='sub'>
+            <input type='text' onChange={handleChange2} className='textbox'/>
+            </div>
+
+            <br></br>
+            <div className='sub'>
+                {/* 保存ボタン */}
+                <button onClick={handleClick} className='button'>保存</button>
+            </div>
         </div>
     );
 }
