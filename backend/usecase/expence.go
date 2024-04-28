@@ -15,11 +15,12 @@ type IExpenceUsecase interface {
 	Delete(expence model.Expense) error
 }
 type expenceUsecase struct {
-	repo repository.IExpenceRepository
+	repo   repository.IExpenceRepository
+	alRepo repository.IAllowanceRepository
 }
 
-func NewExpenceUsecase(repo repository.IExpenceRepository) IExpenceUsecase {
-	return &expenceUsecase{repo}
+func NewExpenceUsecase(repo repository.IExpenceRepository, alRepo repository.IAllowanceRepository) IExpenceUsecase {
+	return &expenceUsecase{repo, alRepo}
 }
 func (u *expenceUsecase) GetByID(id uint) (model.Expense, error) {
 	return u.repo.GetByID(id)
@@ -36,7 +37,12 @@ func (u *expenceUsecase) Create(expence model.Expense) (model.Expense, error) {
 	if err != nil {
 		return model.Expense{}, err
 	}
-	expence.RemainingAmount = remain.RemainingAmount - expence.AmountSpent
+	if remain.Date.Day() != expence.Date.Day() {
+		allowance, _ := u.alRepo.GetCurrent(int(expence.Date.Month()), int(expence.Date.Year()))
+		expence.RemainingAmount = remain.RemainingAmount + allowance.Allowance/daysInMonth(int(expence.Date.Year()), int(expence.Date.Month()))
+	} else {
+		expence.RemainingAmount = remain.RemainingAmount
+	}
 	return u.repo.Create(expence)
 }
 func (u *expenceUsecase) Update(expence model.Expense) (model.Expense, error) {
@@ -44,4 +50,8 @@ func (u *expenceUsecase) Update(expence model.Expense) (model.Expense, error) {
 }
 func (u *expenceUsecase) Delete(expence model.Expense) error {
 	return u.repo.Delete(expence)
+}
+func daysInMonth(year int, month int) int {
+	t := time.Date(year, time.Month(month+1), 0, 0, 0, 0, 0, time.UTC)
+	return t.Day()
 }
