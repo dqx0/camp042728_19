@@ -22,7 +22,7 @@ export const MonthlyMoneyInput = () => {
             month: month
         };
 
-        fetch("http://localhost:3000/", {
+        fetch("http://localhost:8080/api/allowance", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

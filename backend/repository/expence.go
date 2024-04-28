@@ -22,7 +22,7 @@ func NewExpenceRepository(db *gorm.DB) IExpenceRepository {
 }
 func (r *expenceRepository) GetByID(id uint) (model.Expense, error) {
 	var expence model.Expense
-	err := r.db.First(&expence, id).Error
+	err := r.db.Where("user_id = ?", id).Order("expense_id desc").First(&expence).Error
 	return expence, err
 }
 func (r *expenceRepository) GetAllByUJserIdAndDate(userId uint, date string) ([]model.Expense, error) {
